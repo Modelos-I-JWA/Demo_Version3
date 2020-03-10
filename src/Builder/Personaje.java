@@ -28,13 +28,17 @@ public class Personaje extends JComponent implements Cloneable {
     int desplazamientoVertical = 0;
     int desplazamientoHorizontal = 0;
     int relacion = 0; 
-    static JPanel panel = null;
+    public int velocidad;
+
+    
+    static JPanel panel;
     static JLabel Imagen =null;
     public Thread hilo;
 
     // CONSTRUCTOR
     public Personaje() {
-       
+        
+        velocidad=130;
         hilo = null;
         derecha = null;
         izquierda=null;
@@ -46,10 +50,9 @@ public class Personaje extends JComponent implements Cloneable {
         ancho = 0;
         alto = 0;
         relacion = 0;
-        panel = null;
         
     }
-
+    
   
     public int isRelacion() {
         return relacion;
@@ -86,31 +89,32 @@ public class Personaje extends JComponent implements Cloneable {
                                 numero++;
                                 numero = numero % derecha;
                                 panel.repaint();
-                                hilo.sleep(sleep);
+                                hilo.sleep(velocidad);
+                                System.out.println("velocidad: "+velocidad);
                                 break;
                             case 1:
                                 numero++;
                                 numero = numero % saltar;
                                 panel.repaint();
-                                hilo.sleep(sleep);
+                                hilo.sleep(velocidad);
                                 break;
                             case 2:
                                 numero++;
                                 numero = numero % morir;
                                 panel.repaint();
-                                hilo.sleep(sleep);
+                                hilo.sleep(velocidad);
                                 break;
                             case 3:
                                 numero++;
                                 numero = numero % atacar;
                                 panel.repaint();
-                                hilo.sleep(sleep);
+                                hilo.sleep(velocidad);
                                 break;
                             case 4:
                                 numero++;
                                 numero = numero % izquierda;
                                 panel.repaint();
-                                hilo.sleep(sleep);
+                                hilo.sleep(velocidad);
                                 break;
                             default:
                                 break;
@@ -124,7 +128,7 @@ public class Personaje extends JComponent implements Cloneable {
     }
     
     public void setPanel(JPanel panel) {
-        Personaje.panel = panel;
+        this.panel = panel;
         setBounds(0, 0, panel.getWidth(), panel.getHeight());
     }
 
@@ -143,6 +147,8 @@ public class Personaje extends JComponent implements Cloneable {
     public void setIzquierda(ImageIcon[] izquierda) {
         this.izquierda = izquierda;
     }
+    
+    
 
     public ImageIcon[] getSaltar() {
         return saltar;
@@ -168,6 +174,8 @@ public class Personaje extends JComponent implements Cloneable {
         this.atacar = atacar;
     }
 
+ 
+      
     // CLONE
     @Override
     public Personaje clone() {
@@ -175,11 +183,11 @@ public class Personaje extends JComponent implements Cloneable {
         try {
             PersonajeClonado = (Personaje) super.clone();
             if (PersonajeClonado.isRelacion()==1) {
-                PersonajeClonado.setHilo(6 , 6 , 6, 5, 5, 130);
+                PersonajeClonado.setHilo(6 , 6 , 6, 5, 5, velocidad);
             } else  if (PersonajeClonado.isRelacion()==2){
-                PersonajeClonado.setHilo(5, 5, 3, 7, 5, 130);
+                PersonajeClonado.setHilo(5, 5, 3, 7, 5, velocidad);
             }else if (PersonajeClonado.isRelacion()==3){
-                PersonajeClonado.setHilo(5,6, 5, 4, 3, 130);
+                PersonajeClonado.setHilo(5,6, 5, 4, 3, velocidad);
             }
                 
         } catch (CloneNotSupportedException e) {
@@ -253,5 +261,12 @@ public class Personaje extends JComponent implements Cloneable {
         if (!hilo.isAlive()) {
             hilo.start();
         }
+    }
+    public void setVelocidad(int velocidad) {
+        this.velocidad = velocidad;
+    }
+
+    public int getVelocidad() {
+        return velocidad;
     }
 }

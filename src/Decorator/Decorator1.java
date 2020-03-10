@@ -11,7 +11,7 @@ import Builder.Personaje;
 public class Decorator1 extends Personaje{
 
     public Decorator1() {
-       
+       //super.poder();
     }
    
 }

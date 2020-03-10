@@ -102,6 +102,7 @@ public class Vista extends javax.swing.JFrame {
         build.CrearPersonaje();
         Vista1 ventana = new Vista1(build.getPersonaje());
         ventana.setVisible(true);
+        ventana.setResizable(false);
         this.setVisible(false);
         dispose();
     }//GEN-LAST:event_BotonHumanoActionPerformed
@@ -112,6 +113,7 @@ public class Vista extends javax.swing.JFrame {
         build.CrearPersonaje();
         Vista1 ventana = new Vista1(build.getPersonaje());
         ventana.setVisible(true);
+        ventana.setResizable(false);
         this.setVisible(false);
         dispose();
     }//GEN-LAST:event_BotonOrcoActionPerformed
@@ -122,6 +124,7 @@ public class Vista extends javax.swing.JFrame {
         build.CrearPersonaje();
         Vista1 ventana = new Vista1(build.getPersonaje());
         ventana.setVisible(true);
+        ventana.setResizable(false);
         this.setVisible(false);
         dispose();
     }//GEN-LAST:event_BotonElfoActionPerformed
@@ -157,6 +160,8 @@ public class Vista extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Vista().setVisible(true);
+             
+                
             }
         });
     }

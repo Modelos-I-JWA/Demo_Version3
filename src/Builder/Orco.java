@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
  */
 public class Orco extends Personaje{
     public Orco() {
-        super.setHilo(5,6, 5, 4, 3, 130);
+        super.setHilo(5,6, 5, 4, 3, velocidad);
         super.ancho = 250;
         super.alto = 150;
         super.relacion = 3;

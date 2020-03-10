@@ -30,8 +30,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="BotonClonar" min="-2" max="-2" attributes="0"/>
                   <Component id="BotonPoder" min="-2" max="-2" attributes="0"/>
+                  <Component id="BajarV" min="-2" max="-2" attributes="0"/>
+                  <Component id="SubirV" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="24" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -45,8 +47,12 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
               <Component id="BotonClonar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="189" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="185" max="-2" attributes="0"/>
               <Component id="BotonPoder" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+              <Component id="BajarV" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="SubirV" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -74,24 +80,48 @@
     <Component class="javax.swing.JButton" name="BotonClonar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Clonar"/>
+        <Property name="focusable" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonClonarActionPerformed"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="BotonClonar.addActionListener(new java.awt.event.ActionListener() {&#xa;    public void actionPerformed(java.awt.event.ActionEvent evt) {&#xa;        BotonClonarActionPerformed(evt);&#xa;    }&#xa;});&#xa;BotonClonar.addKeyListener(new java.awt.event.KeyAdapter() {&#xa;    public void keyPressed(java.awt.event.KeyEvent evt) {&#xa;               KP(evt);&#xa;    }&#xa;});"/>
-        <AuxValue name="JavaCodeGenerator_AddingCodePre" type="java.lang.String" value="BotonClonar.addKeyListener(new java.awt.event.KeyAdapter() {&#xa;    public void keyPressed(java.awt.event.KeyEvent evt) {&#xa;               KP(evt);&#xa;    }&#xa;});"/>
+        <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="BotonClonar.addKeyListener(new java.awt.event.KeyAdapter() {&#xa;    public void keyPressed(java.awt.event.KeyEvent evt) {&#xa;        KP(evt);&#xa;    }&#xa;});"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="BotonPoder">
       <Properties>
         <Property name="text" type="java.lang.String" value="Poder"/>
+        <Property name="focusable" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonPoderActionPerformed"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="BotonPoder.addKeyListener(new java.awt.event.KeyAdapter() {&#xa;    public void keyPressed(java.awt.event.KeyEvent evt) {&#xa;               KP(evt);&#xa;    }&#xa;});"/>
+        <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="BotonPoder.addKeyListener(new java.awt.event.KeyAdapter() {&#xa;    public void keyPressed(java.awt.event.KeyEvent evt) {&#xa;        KP(evt);&#xa;    }&#xa;});"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="BajarV">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Bajar Vida"/>
+        <Property name="focusable" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BajarVActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="BajarV.addKeyListener(new java.awt.event.KeyAdapter() {&#x9;&#x9;&#x9;//KeyPressed (Importante a&#xf1;adir este metodo a cada boton nuevo agregado)&#xa;    public void keyPressed(java.awt.event.KeyEvent evt) {&#xa;        KP(evt);&#xa;    }&#xa;});"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="SubirV">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Subir Vida"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SubirVActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="SubirV.addKeyListener(new java.awt.event.KeyAdapter() {&#x9;&#x9;&#x9;//KeyPressed (Importante a&#xf1;adir este metodo a cada boton nuevo agregado)&#xa;    public void keyPressed(java.awt.event.KeyEvent evt) {&#xa;        KP(evt);&#xa;    }&#xa;});"/>
       </AuxValues>
     </Component>
   </SubComponents>

@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
  */
 public class Humano extends Personaje{
      public Humano() {
-        super.setHilo(5, 5, 3, 7, 5, 130);
+        super.setHilo(5, 5, 3, 7, 5, velocidad);
         super.ancho = 250;
         super.alto = 150;
         super.relacion = 2;

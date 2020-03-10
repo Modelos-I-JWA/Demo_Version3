@@ -9,11 +9,9 @@ import Builder.Builder;
 import Builder.ConstructorElfo;
 import Builder.ConstructorHumano;
 import Builder.ConstructorOrco;
-
-   
 import Builder.Elfo;
 import Builder.Personaje;
-import java.applet.AudioClip;
+import chainofresponsability.Implementar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -28,14 +26,16 @@ import javax.swing.JLabel;
  *
  * @author Juan David
  */
-public class Vista1 extends javax.swing.JFrame implements KeyListener{
+public class Vista1 extends javax.swing.JFrame implements KeyListener {
 
     ArrayList<Personaje> p = new ArrayList<>();
+
     public static JLabel Imagen = new JLabel();
-    
-     
-    int aux=0;  
-    
+    Implementar imp = new Implementar();
+    Personaje per;
+    int aux = 0;
+    public int n = 130;
+
     public Vista1(Personaje per) {
         initComponents();
         Imagen.setBounds(50, 50, 200, 200);
@@ -44,57 +44,66 @@ public class Vista1 extends javax.swing.JFrame implements KeyListener{
         per.setPanel(panel);
         this.p.add(per);
         this.p.add(per.clone());
-        
         this.p.get(1).setDesplazamientoVertical(200);
-       
+
         panel.add(this.p.get(0));
         panel.add(this.p.get(1));
         panel.add(Imagen);
-        
+        this.per = per;
 
         addKeyListener(this);
         setFocusable(true);
-        setFocusTraversalKeysEnabled(false);
+        setFocusTraversalKeysEnabled(true);
     }
 
-  
-
-     @Override
+    @Override
     public void keyPressed(KeyEvent e) {
-        switch (e.getKeyCode()) { 
+
+        switch (e.getKeyCode()) {
             case KeyEvent.VK_RIGHT:
+                Imagen.setLocation(Imagen.getX() + 5, Imagen.getY());
                 p.get(0).derecha();
                 p.get(1).derecha();
-               
+                
                 break;
             case KeyEvent.VK_LEFT:
+                Imagen.setLocation(Imagen.getX() - 5, Imagen.getY());
                 p.get(0).izquierda();
                 p.get(1).izquierda();
-               
                 break;
             case KeyEvent.VK_UP:
+                Imagen.setLocation(Imagen.getX(), Imagen.getY()-5);
                 p.get(0).saltar();
                 p.get(1).saltar();
-             
+
                 break;
             case KeyEvent.VK_X:
                 p.get(0).atacar();
                 p.get(1).atacar();
-               
+
                 break;
             case KeyEvent.VK_Z:
                 p.get(0).morir();
                 p.get(1).morir();
-            
+
                 break;
-            
+
             default:
                 break;
         }
+
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
         
     }
-    
-    
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -102,6 +111,8 @@ public class Vista1 extends javax.swing.JFrame implements KeyListener{
         panel = new javax.swing.JPanel();
         BotonClonar = new javax.swing.JButton();
         BotonPoder = new javax.swing.JButton();
+        BajarV = new javax.swing.JButton();
+        SubirV = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -117,13 +128,20 @@ public class Vista1 extends javax.swing.JFrame implements KeyListener{
         );
 
         BotonClonar.setText("Clonar");
+        BotonClonar.setFocusable(false);
         BotonClonar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotonClonarActionPerformed(evt);
             }
         });
+        BotonClonar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                KP(evt);
+            }
+        });
 
         BotonPoder.setText("Poder");
+        BotonPoder.setFocusable(false);
         BotonPoder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotonPoderActionPerformed(evt);
@@ -135,7 +153,26 @@ public class Vista1 extends javax.swing.JFrame implements KeyListener{
             }
         });
 
-        BotonClonar.addKeyListener(new java.awt.event.KeyAdapter() {
+        BajarV.setText("Bajar Vida");
+        BajarV.setFocusable(false);
+        BajarV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BajarVActionPerformed(evt);
+            }
+        });
+        BajarV.addKeyListener(new java.awt.event.KeyAdapter() {			//KeyPressed (Importante añadir este metodo a cada boton nuevo agregado)
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                KP(evt);
+            }
+        });
+
+        SubirV.setText("Subir Vida");
+        SubirV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SubirVActionPerformed(evt);
+            }
+        });
+        SubirV.addKeyListener(new java.awt.event.KeyAdapter() {			//KeyPressed (Importante añadir este metodo a cada boton nuevo agregado)
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 KP(evt);
             }
@@ -151,8 +188,10 @@ public class Vista1 extends javax.swing.JFrame implements KeyListener{
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(BotonClonar)
-                    .addComponent(BotonPoder))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(BotonPoder)
+                    .addComponent(BajarV)
+                    .addComponent(SubirV))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,21 +202,14 @@ public class Vista1 extends javax.swing.JFrame implements KeyListener{
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(BotonClonar)
-                .addGap(189, 189, 189)
+                .addGap(185, 185, 185)
                 .addComponent(BotonPoder)
+                .addGap(60, 60, 60)
+                .addComponent(BajarV)
+                .addGap(18, 18, 18)
+                .addComponent(SubirV)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        BotonClonar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonClonarActionPerformed(evt);
-            }
-        });
-        BotonClonar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                KP(evt);
-            }
-        });
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -187,35 +219,37 @@ public class Vista1 extends javax.swing.JFrame implements KeyListener{
     }//GEN-LAST:event_BotonClonarActionPerformed
 
     private void BotonPoderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonPoderActionPerformed
-        Imagen.setBounds(50, 50, 300, 300);
+   
     }//GEN-LAST:event_BotonPoderActionPerformed
-    
-    private void KP(java.awt.event.KeyEvent evt) {                                      
+
+    private void BajarVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BajarVActionPerformed
+
+        imp.operacion(1, per);
+
+    }//GEN-LAST:event_BajarVActionPerformed
+
+    private void SubirVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubirVActionPerformed
+        imp.operacion(2, per);
+
+    }//GEN-LAST:event_SubirVActionPerformed
+
+    private void KP(java.awt.event.KeyEvent evt) {
         keyPressed(evt);
-    } 
- 
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BajarV;
     private javax.swing.JButton BotonClonar;
     private javax.swing.JButton BotonPoder;
+    private javax.swing.JButton SubirV;
     public javax.swing.JPanel panel;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int getN() {
+        return n;
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    public void CorrerSonido(){
-        AudioClip sonido = null; //Quitar el null
-        //int n = Componentes.size()-1; 
-        //sonido = java.applet.Applet.newAudioClip(getClass().getResource(Componentes.get(n)));
-        sonido.play();
+    public void setN(int n) {
+        this.n = n;
     }
 
- 
 }

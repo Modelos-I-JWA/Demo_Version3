@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
  */
 public class Elfo extends Personaje {
     public Elfo() {
-        super.setHilo(6 , 6 , 6, 5, 5, 130);
+        super.setHilo(6 , 6 , 6, 5, 5, velocidad);
         super.ancho = 250;
         super.alto = 150;
         super.relacion = 1;
