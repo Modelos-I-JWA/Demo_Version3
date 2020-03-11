@@ -1,5 +1,7 @@
 package Builder;
 
+import Strategy.Control;
+import Strategy.Flechas;
 import Vista.Vista1;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -8,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import Vista.Vista1;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -20,28 +23,30 @@ public class Personaje extends JComponent implements Cloneable {
     protected ImageIcon[] saltar;
     protected ImageIcon[] morir;
     protected ImageIcon[] atacar;
+    protected Control ctr;
     static ImageIcon img;
-    int x = 0; 
+    public int desplazamiento;
+    public int tempDesplazamiento;
+    int x = 0;
     int numero = 0;
     int ancho = 0;
     int alto = 0;
     int desplazamientoVertical = 0;
     int desplazamientoHorizontal = 0;
-    int relacion = 0; 
+    int relacion = 0;
     public int velocidad;
 
-    
     static JPanel panel;
-    static JLabel Imagen =null;
+    static JLabel Imagen = null;
     public Thread hilo;
 
     // CONSTRUCTOR
     public Personaje() {
-        
-        velocidad=130;
+
+        velocidad = 130;
         hilo = null;
         derecha = null;
-        izquierda=null;
+        izquierda = null;
         saltar = null;
         morir = null;
         atacar = null;
@@ -50,10 +55,9 @@ public class Personaje extends JComponent implements Cloneable {
         ancho = 0;
         alto = 0;
         relacion = 0;
-        
+
     }
-    
-  
+
     public int isRelacion() {
         return relacion;
     }
@@ -74,11 +78,12 @@ public class Personaje extends JComponent implements Cloneable {
         this.alto = alto;
     }
 
-    public void poder() throws IOException{
-        img=new ImageIcon(ImageIO.read(new File("Recursos\\ImagenesOrco\\Izquierda\\OrcIzq1.jpg")));
-       Imagen.setIcon(img);
+    public void poder() throws IOException {
+        img = new ImageIcon(ImageIO.read(new File("Recursos\\ImagenesOrco\\Izquierda\\OrcIzq1.jpg")));
+        Imagen.setIcon(img);
     }
-    public void setHilo(final int derecha,final int izquierda, final int saltar, final int morir, final int atacar, final int sleep) {
+
+    public void setHilo(final int derecha, final int izquierda, final int saltar, final int morir, final int atacar, final int sleep) {
         this.hilo = new Thread() {
             @Override
             public void run() {
@@ -86,11 +91,35 @@ public class Personaje extends JComponent implements Cloneable {
                     while (true) {
                         switch (x) {
                             case 0:
+                                switch (desplazamiento) {
+                                    case 39:
+                                        desplazamientoHorizontal += 24;
+                                        tempDesplazamiento = desplazamiento;
+                                        desplazamiento = 0;
+                                        break;
+                                    case 38:
+                                        desplazamientoVertical -= 24;
+                                        tempDesplazamiento = desplazamiento;
+                                        desplazamiento = 0;
+                                        break;
+                                    case 37:
+                                        desplazamientoHorizontal -= 24;
+                                        tempDesplazamiento = desplazamiento;
+                                        desplazamiento = 0;
+                                        break;
+                                    case 40:
+                                        desplazamientoVertical += 24;
+                                        tempDesplazamiento = desplazamiento;
+                                        desplazamiento = 0;
+                                        break;
+                                    default:
+                                        break;
+                                }
                                 numero++;
                                 numero = numero % derecha;
                                 panel.repaint();
                                 hilo.sleep(velocidad);
-                                System.out.println("velocidad: "+velocidad);
+                                System.out.println("velocidad: " + velocidad);
                                 break;
                             case 1:
                                 numero++;
@@ -126,7 +155,7 @@ public class Personaje extends JComponent implements Cloneable {
             }
         };
     }
-    
+
     public void setPanel(JPanel panel) {
         this.panel = panel;
         setBounds(0, 0, panel.getWidth(), panel.getHeight());
@@ -139,7 +168,7 @@ public class Personaje extends JComponent implements Cloneable {
     public void setDerecha(ImageIcon[] derecha) {
         this.derecha = derecha;
     }
-    
+
     public ImageIcon[] getIzquierda() {
         return izquierda;
     }
@@ -147,8 +176,6 @@ public class Personaje extends JComponent implements Cloneable {
     public void setIzquierda(ImageIcon[] izquierda) {
         this.izquierda = izquierda;
     }
-    
-    
 
     public ImageIcon[] getSaltar() {
         return saltar;
@@ -174,24 +201,22 @@ public class Personaje extends JComponent implements Cloneable {
         this.atacar = atacar;
     }
 
- 
-      
     // CLONE
     @Override
     public Personaje clone() {
         Personaje PersonajeClonado = null;
         try {
             PersonajeClonado = (Personaje) super.clone();
-            if (PersonajeClonado.isRelacion()==1) {
-                PersonajeClonado.setHilo(6 , 6 , 6, 5, 5, velocidad);
-            } else  if (PersonajeClonado.isRelacion()==2){
+            if (PersonajeClonado.isRelacion() == 1) {
+                PersonajeClonado.setHilo(6, 6, 6, 5, 5, velocidad);
+            } else if (PersonajeClonado.isRelacion() == 2) {
                 PersonajeClonado.setHilo(5, 5, 3, 7, 5, velocidad);
-            }else if (PersonajeClonado.isRelacion()==3){
-                PersonajeClonado.setHilo(5,6, 5, 4, 3, velocidad);
+            } else if (PersonajeClonado.isRelacion() == 3) {
+                PersonajeClonado.setHilo(5, 6, 5, 4, 3, velocidad);
             }
-                
+
         } catch (CloneNotSupportedException e) {
-        } 
+        }
         return PersonajeClonado;
     }
 
@@ -203,18 +228,18 @@ public class Personaje extends JComponent implements Cloneable {
                 case 0:
                     g.drawImage(derecha[numero].getImage(), 50 + desplazamientoHorizontal, 0 + desplazamientoVertical, ancho, alto, null);
                     break;
-                case 1:    
-                        g.drawImage(saltar[numero].getImage(), 50 + desplazamientoHorizontal, 0 + desplazamientoVertical, ancho, alto, null);
+                case 1:
+                    g.drawImage(saltar[numero].getImage(), 50 + desplazamientoHorizontal, 0 + desplazamientoVertical, ancho, alto, null);
                     break;
                 case 2:
-                        g.drawImage(morir[numero].getImage(), 50 + desplazamientoHorizontal, 0 + desplazamientoVertical, ancho , alto - 18, null);
+                    g.drawImage(morir[numero].getImage(), 50 + desplazamientoHorizontal, 0 + desplazamientoVertical, ancho, alto - 18, null);
                     break;
                 case 3:
-                        g.drawImage(atacar[numero].getImage(), 50 + desplazamientoHorizontal, 0 + desplazamientoVertical, ancho , alto, null);
+                    g.drawImage(atacar[numero].getImage(), 50 + desplazamientoHorizontal, 0 + desplazamientoVertical, ancho, alto, null);
                     break;
                 case 4:
-                        g.drawImage(izquierda[numero].getImage(), 50 + desplazamientoHorizontal, 0 + desplazamientoVertical, ancho, alto, null);
-    
+                    g.drawImage(izquierda[numero].getImage(), 50 + desplazamientoHorizontal, 0 + desplazamientoVertical, ancho, alto, null);
+
                 default:
                     break;
             }
@@ -224,6 +249,16 @@ public class Personaje extends JComponent implements Cloneable {
     }
 
     // ANIMACIONES
+    public void mover() {
+        x = 0;
+        if (!((tempDesplazamiento > 36) & (tempDesplazamiento < 41))) {
+            numero = 0;
+        }
+        if (!hilo.isAlive()) {
+            hilo.start();
+        }
+    }
+
     public void derecha() {
         x = 0;
         numero = 0;
@@ -231,6 +266,7 @@ public class Personaje extends JComponent implements Cloneable {
             hilo.start();
         }
     }
+
     public void izquierda() {
         x = 4;
         numero = 0;
@@ -262,6 +298,20 @@ public class Personaje extends JComponent implements Cloneable {
             hilo.start();
         }
     }
+    
+     public void operar(KeyEvent evento) {
+        ctr = new Flechas(evento, this);
+        ctr.operar();
+    }
+
+    public void interrumpir() {
+        try {
+            hilo.interrupt();
+        } catch (Exception ex) {
+            System.out.println("hilo " + hilo.getName() + " no interrumpido");
+        }
+    }
+
     public void setVelocidad(int velocidad) {
         this.velocidad = velocidad;
     }
@@ -269,4 +319,13 @@ public class Personaje extends JComponent implements Cloneable {
     public int getVelocidad() {
         return velocidad;
     }
+
+    public int getDesplazamientoHorizontal() {
+        return desplazamientoHorizontal;
+    }
+
+    public int getDesplazamientoVertical() {
+        return desplazamientoVertical;
+    }
+
 }
