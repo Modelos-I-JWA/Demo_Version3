@@ -12,11 +12,7 @@ import Vista.Vista1;
 public class Main {
 
 	public static void main (String[]ARG) {
-	
         Vista ventana = new Vista();
         ventana.setVisible(true);
-      
-		
-  
 	}
 }
